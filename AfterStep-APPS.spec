@@ -1,10 +1,12 @@
 Summary:	Applets you can use with AfterStep and compatible window managers.
+Summary(pl):	Aplety, których mo¿esz u¿ywaæ z AfterStepem oraz innymi zarz±dcami okien, które s± z nim kompatybilne
 Name:		AfterStep-APPS
 Version:	990329
-Release:	2
+Release:	3
 Copyright:	GPL
-Group:		X11/Applications
-Source0:	http://www.tigr.net/afterstep/as-apps/download/as-apps-%{version}.tar
+Group:		X11/Window Managers/Tools
+Group(pl):	X11/Zarz±dcy okien/Narzêdzia
+Source:		http://www.tigr.net/afterstep/as-apps/download/as-apps-%{version}.tar
 Patch0:		AfterStep-APPS-1.5beta1-glibc.patch
 Patch1:		ascp-paths.patch
 Patch2:		as-apps-compile.patch
@@ -27,6 +29,15 @@ information about system resources.
 
 If you've installed the AfterStep packages, you
 should also install these packages. Enjoy! 
+
+%description -l pl
+Czym jest fajny zarz±dca okien bez fajnych apletów?
+Có¿... jest nadal fajnym zarz±dc± okien, ale aplety, które mog± byæ u¿ywane
+w module Wharf AfterStepa lub Window Makera, mog³yby zwiêkszyæ efektywno¶æ
+i efektowno¶æ twojego ulubionego zarz±dcy okien.
+
+Je¿eli masz zainstalowanego AfterStepa to powiniene¶ zainstalowaæ tak¿e ten
+pakiet. Mi³ej zabawy!
 
 %prep
 %setup -q -c
