@@ -7,9 +7,9 @@ License:	GPL
 Group:		X11/Window Managers/Tools
 Source0:	http://www.tigr.net/afterstep/as-apps/download/as-apps-%{version}.tar
 Patch0:		%{name}-1.5beta1-glibc.patch
-Patch1:	        xiterm-utmp.patch
-Patch2:         as-apps-miniCHESS-change_install_dirs.patch
-Patch3:         as-apps-ascd-configure_and_install_bugfix.patch
+Patch1:		xiterm-utmp.patch
+Patch2:		as-apps-miniCHESS-change_install_dirs.patch
+Patch3:		as-apps-ascd-configure_and_install_bugfix.patch
 #Patch4:        ascp-paths.patch
 #Patch5:        aterm-utemp.patch
 Prereq:		/sbin/ldconfig
@@ -54,14 +54,14 @@ done
 
 %build
 for package in `ls` ; do
-    cd $package 
+    cd $package
     case $package in
 	ascd-* )
 	    ./configure << EOF
 /dev/cdrom
-/usr/X11R6/bin
-/usr/X11R6/share/man/man1
-/usr/X11R6/share/afterstep/AScd
+%{_bindir}
+%{_mandir}/man1
+%{_datadir}/afterstep/AScd
 2
 EOF
 	    xmkmf
@@ -89,24 +89,24 @@ EOF
 	     ;;
 
 	ascp-* )
-	    
-	    ## There is strange problem with this program. 
+
+	    ## There is strange problem with this program.
 	    ## The ./configure script tries to run /usr/local/bin/gtk-config
-	    ## program. In PLD it should be /usr/X11R6/bin/gtk-config. 
-	    ## 
-	    ##    --with-gtk-prefix 
-	    ##    --with-gtk-exec-prefix 
+	    ## program. In PLD it should be %{_bindir}/gtk-config.
+	    ##
+	    ##    --with-gtk-prefix
+	    ##    --with-gtk-exec-prefix
 	    ## or --disable-gtktest
 	    ## not help here. I don't now why.
 
-	    # export LD_LIBRARY_PATH=/usr/X11R6/
+# export LD_LIBRARY_PATH=%{_prefix}/
 	    # configure2_13 \
 	    #	--enable-i18n \
-	    #   --x-includes=/usr/X11R6/include \
-	    #	--x-libraries=/usr/X11R6/lib \
-	    #   --disable-gtktest 
-            #	--with-gtk-prefix=/usr/X11R6 \
-            #	--with-gtk-exec-prefix=/usr/X11R6/bin
+	    #   --x-includes=%{_includedir} \
+	    #	--x-libraries=%{_libdir} \
+	    #   --disable-gtktest
+# --with-gtk-prefix=%{_prefix} \
+            #	--with-gtk-exec-prefix=%{_bindir}
 	    # make
 	    ;;
 
@@ -119,11 +119,11 @@ EOF
 	    ;;
 
 	asppp-* )
-	    ## xpminit.c:7: dial.xpm: No such file or directory 
+	    ## xpminit.c:7: dial.xpm: No such file or directory
 
 	    # configure2_13
 	    # make
-	    ;;	    
+	    ;;
 
 	miniCHESS-* )
 	    #chess.c: In function `mouseGame':
@@ -191,7 +191,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1}
 
 for package in `ls` ; do
-    cd $package 
+    cd $package
     case $package in
 
 	ascd-* )
@@ -201,7 +201,7 @@ for package in `ls` ; do
 		MANDIR=%{_mandir}/man1 \
 		BINDIR=%{_bindir} \
 		SHLIBDIR=%{_libdir} \
-		DESTDIR=$RPM_BUILD_ROOT	
+		DESTDIR=$RPM_BUILD_ROOT
 	    ;;
 
 	aterm*)
@@ -225,7 +225,7 @@ for package in `ls` ; do
 	    #	MANDIR=%{_mandir}/man1 \
 	    #	BINDIR=%{_bindir} \
 	    #	SHLIBDIR=%{_libdir} \
-	    #	DESTDIR=$RPM_BUILD_ROOT	
+	    #	DESTDIR=$RPM_BUILD_ROOT
 	    ;;
 
 	asfatm-*)
@@ -234,7 +234,7 @@ for package in `ls` ; do
 
         ascp-*)
     	    ## We do not install this. (If you want to know why check
-	    ## the build section above). 
+	    ## the build section above).
 
 	    # make install \
 	    #   ASCP_BIN_DIR=$RPM_BUILD_ROOT%{_bindir} \
