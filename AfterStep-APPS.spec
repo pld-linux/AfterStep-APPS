@@ -5,8 +5,6 @@ Version:	991125
 Release:	4
 License:	GPL
 Group:		X11/Window Managers/Tools
-Group(de):	X11/Fenstermanager/Werkzeuge
-Group(pl):	X11/Zarz±dcy Okien/Narzêdzia
 Source0:	http://www.tigr.net/afterstep/as-apps/download/as-apps-%{version}.tar
 Patch0:		%{name}-1.5beta1-glibc.patch
 Patch1:	        xiterm-utmp.patch
