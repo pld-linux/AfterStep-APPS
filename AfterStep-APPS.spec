@@ -14,7 +14,7 @@ Patch3:		aterm-utmp.patch
 Patch4:		xiterm-utmp.patch
 Prereq:		/sbin/ldconfig
 Requires:	/usr/sbin/utempter
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix	/usr/X11R6
 %define		_mandir	/usr/X11R6/man
@@ -60,8 +60,6 @@ for package in `ls` ; do
 1
 
 1
-
-
 
 EOF
 	    patch -p2 -b --suffix .compile < %{PATCH2}
@@ -146,7 +144,6 @@ for package in `ls` ; do
 		DESTDIR=$RPM_BUILD_ROOT
 	    ;;
 	
-
 	asppp* | aterm* )
 	    make install \
 	        AFTER_BIN_DIR=$RPM_BUILD_ROOT%{_bindir} \
