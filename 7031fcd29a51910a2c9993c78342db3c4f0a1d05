@@ -1,0 +1,17 @@
+In %prep:
+
++ remove as-apps-compile.patch and add new one
+  (as-apps-ascd-ascd_configure_and_install_bugfix.patch), which can
+  be used instead of the old one.
+
++ remove ascp-paths.patch and aterm-utmp.patch.
+  I don't now why and how they should be used?
+
++ add new as-apps-ascd-ascd_configure_and_install_bugfix.patch patch
+  which fix few problems with configuration, compilation
+  and instalation ascd
+
++ add new as-apps-miniCHESS-change_install_dirs.patch
+
+In %build and %install I have changed few things to build
+and install AfterStep-APPS property.
