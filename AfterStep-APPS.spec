@@ -13,6 +13,7 @@ Patch2:		as-apps-miniCHESS-change_install_dirs.patch
 Patch3:		as-apps-ascd-configure_and_install_bugfix.patch
 #Patch4:        ascp-paths.patch
 #Patch5:        aterm-utemp.patch
+Patch6:		%{name}-home_etc.patch
 URL:		http://www.tigr.net/afterstep/
 Requires:	/usr/sbin/utempter
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -50,6 +51,7 @@ done
 %patch3 -p1
 #patch4
 #patch5
+%patch6 -p1
 
 %build
 mv ascd-0.12.1/ascd/themes/clean.tar ascd-0.12.1/ascd/themes/cleandir.tar
