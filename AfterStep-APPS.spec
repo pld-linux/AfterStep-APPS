@@ -7,7 +7,7 @@ License:	GPL
 Group:		X11/Window Managers/Tools
 Group(pl):	X11/Zarz±dcy Okien/Narzêdzia
 Source0:	http://www.tigr.net/afterstep/as-apps/download/as-apps-%{version}.tar
-Patch0:		AfterStep-APPS-1.5beta1-glibc.patch
+Patch0:		%{name}-1.5beta1-glibc.patch
 Patch1:		ascp-paths.patch
 Patch2:		as-apps-compile.patch
 Patch3:		aterm-utmp.patch
