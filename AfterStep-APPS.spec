@@ -6,6 +6,7 @@ Release:	4
 License:	GPL
 Group:		X11/Window Managers/Tools
 Source0:	http://www.tigr.net/afterstep/download/as-apps-%{version}.tar
+# Source0-md5:	9cdd656d4b2b36100cde4675602082b3
 Patch0:		%{name}-1.5beta1-glibc.patch
 Patch1:		xiterm-utmp.patch
 Patch2:		as-apps-miniCHESS-change_install_dirs.patch
