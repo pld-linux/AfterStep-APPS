@@ -16,8 +16,6 @@ URL:		http://www.tigr.net/afterstep/
 Requires:	/usr/sbin/utempter
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix		/usr/X11R6
-%define		_mandir		/usr/X11R6/man
 
 %description
 What's a cool window manager without some cool applets? Well... it's
