@@ -5,7 +5,7 @@ Version:	991125
 Release:	3
 Copyright:	GPL
 Group:		X11/Window Managers/Tools
-Group(pl):	X11/Zarz±dcy okien/Narzêdzia
+Group(pl):	X11/Zarz±dcy Okien/Narzêdzia
 Source:		http://www.tigr.net/afterstep/as-apps/download/as-apps-%{version}.tar
 Patch0:		AfterStep-APPS-1.5beta1-glibc.patch
 Patch1:		ascp-paths.patch
