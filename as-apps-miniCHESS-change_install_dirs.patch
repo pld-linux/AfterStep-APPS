@@ -1,0 +1,16 @@
+diff -Naur AfterStep-APPS-991125.orig/miniCHESS-0.8/Makefile AfterStep-APPS-991125/miniCHESS-0.8/Makefile
+--- AfterStep-APPS-991125.orig/miniCHESS-0.8/Makefile	Thu Jul 29 04:59:39 1999
++++ AfterStep-APPS-991125/miniCHESS-0.8/Makefile	Wed Nov 28 16:03:09 2001
+@@ -22,10 +22,10 @@
+ 
+ 
+ # Specify the location of gnuchessx on your system.
+-GNUCHESS = /usr/local/bin/gnuchessx
++GNUCHESS = /usr/bin/gnuchessx
+ 
+ # Where do you want the binary installed?
+-DESTDIR = /usr/local/bin
++DESTDIR = /usr/X11R6/bin
+ 
+ # What do you want to name the binary?
+ BIN_NAME = minichess
