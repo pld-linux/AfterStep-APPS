@@ -1,10 +1,11 @@
-Summary:	Applets you can use with AfterStep and compatible window managers.
+Summary:	Applets you can use with AfterStep and compatible window managers
 Summary(pl):	Aplety, których mo¿esz u¿ywaæ z AfterStepem oraz innymi zarz±dcami okien, które s± z nim kompatybilne
 Name:		AfterStep-APPS
 Version:	991125
 Release:	3
 License:	GPL
 Group:		X11/Window Managers/Tools
+Group(de):	X11/Fenstermanager/Werkzeuge
 Group(pl):	X11/Zarz±dcy Okien/Narzêdzia
 Source0:	http://www.tigr.net/afterstep/as-apps/download/as-apps-%{version}.tar
 Patch0:		%{name}-1.5beta1-glibc.patch
@@ -16,8 +17,8 @@ Prereq:		/sbin/ldconfig
 Requires:	/usr/sbin/utempter
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix	/usr/X11R6
-%define		_mandir	/usr/X11R6/man
+%define		_prefix		/usr/X11R6
+%define		_mandir		/usr/X11R6/man
 
 %description
 What's a cool window manager without some cool applets? Well... it's
@@ -63,13 +64,13 @@ for package in `ls` ; do
 EOF
 	    patch -p2 -b --suffix .compile < %{PATCH2}
 	    xmkmf
-	    make Makefiles CXXDEBUGFLAGS="$RPM_OPT_FLAGS" \
-	    	CDEBUGFLAGS="$RPM_OPT_FLAGS"
+	    make Makefiles CXXDEBUGFLAGS="%{rpmcflags}" \
+	    	CDEBUGFLAGS="%{rpmcflags}"
 	    make MANDIR=%{_mandir}/man1 \
 		BINDIR=%{_bindir} \
 		SHLIBDIR=%{_libdir} \
-		CXXDEBUGFLAGS="$RPM_OPT_FLAGS" \
-		CDEBUGFLAGS="$RPM_OPT_FLAGS"
+		CXXDEBUGFLAGS="%{rpmcflags}" \
+		CDEBUGFLAGS="%{rpmcflags}"
 	    ;;
 	
 	asmount* | asDrinks* | asbutton* | asdm* | aspbm* | aspostit* | ascdc-* | astuner* | ASFiles* | as[R-W]* | asfaces* | asmon* | astrash* | asxmcd* )
@@ -95,15 +96,15 @@ EOF
 	    sed -e "s/EXTRA_LIBRARIES =/EXTRA_LIBRARIES = -lutempter/" \
 	       Makefile > Makefile.foo
 	    sed -e "s/-lsocket //" Makefile.foo > Makefile
-	    make CXXDEBUGFLAGS="$RPM_OPT_FLAGS" \
-	    	CDEBUGFLAGS="$RPM_OPT_FLAGS"
+	    make CXXDEBUGFLAGS="%{rpmcflags}" \
+	    	CDEBUGFLAGS="%{rpmcflags}"
 	    ;;
 	asclock*)
-	    CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%{_prefix} << EOF
+	    CFLAGS="%{rpmcflags}" ./configure --prefix=%{_prefix} << EOF
 classic
 
 EOF
-             make CFLAGS="$RPM_OPT_FLAGS"
+             make CFLAGS="%{rpmcflags}"
 	     ;;
 	*)
 	    #just about every other thing supports autoconf
@@ -159,9 +160,6 @@ for package in `ls` ; do
     cd ..
 done
 rm -f $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1}/{sessreg,xpmroot,qplot}*
-strip --strip-unneeded $RPM_BUILD_ROOT%{_bindir}/*
-
-gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
