@@ -5,14 +5,14 @@ Version:	991125
 Release:	4
 License:	GPL
 Group:		X11/Window Managers/Tools
-Source0:	http://www.tigr.net/afterstep/as-apps/download/as-apps-%{version}.tar
+Source0:	http://www.tigr.net/afterstep/download/as-apps-%{version}.tar
 Patch0:		%{name}-1.5beta1-glibc.patch
 Patch1:		xiterm-utmp.patch
 Patch2:		as-apps-miniCHESS-change_install_dirs.patch
 Patch3:		as-apps-ascd-configure_and_install_bugfix.patch
 #Patch4:        ascp-paths.patch
 #Patch5:        aterm-utemp.patch
-Prereq:		/sbin/ldconfig
+URL:		http://www.tigr.net/afterstep/
 Requires:	/usr/sbin/utempter
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -268,8 +268,8 @@ rm -f $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1}/{sessreg,xpmroot,qplot}*
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
