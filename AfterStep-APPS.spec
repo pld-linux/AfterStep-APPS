@@ -52,6 +52,7 @@ done
 #patch5
 
 %build
+mv ascd-0.12.1/ascd/themes/clean.tar ascd-0.12.1/ascd/themes/cleandir.tar
 for package in `ls` ; do
     cd $package
     case $package in
@@ -276,4 +277,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %{_datadir}/afterstep/*
 %{_mandir}/man1/*
-%{_libdir}/*
+/usr/X11R6/lib//*
