@@ -1,7 +1,7 @@
 Summary:	Applets you can use with AfterStep and compatible window managers.
 Summary(pl):	Aplety, których mo¿esz u¿ywaæ z AfterStepem oraz innymi zarz±dcami okien, które s± z nim kompatybilne
 Name:		AfterStep-APPS
-Version:	990329
+Version:	991125
 Release:	3
 Copyright:	GPL
 Group:		X11/Window Managers/Tools
