@@ -1,0 +1,282 @@
+diff -Nru AfterStep-APPS-991125.orig/asDrinks-1.9.4/asDrinks.pl AfterStep-APPS-991125/asDrinks-1.9.4/asDrinks.pl
+--- AfterStep-APPS-991125.orig/asDrinks-1.9.4/asDrinks.pl	Fri Oct 22 17:27:15 1999
++++ AfterStep-APPS-991125/asDrinks-1.9.4/asDrinks.pl	Mon Sep 29 21:47:05 2003
+@@ -6,13 +6,18 @@
+ # These are the only two variables that might (read: shouldnt) need to be configured
+ # IN the script.  The rest of the configuration should be done in your ~/.asDrinksrc
+ 
+-my $startdir = "$ENV{\"HOME\"}/GNUstep/Library/AfterStep/start/";
+-my $tempfile = "$ENV{\"HOME\"}/.tempasDrinksfile";
+-my $tempf = "$ENV{\"HOME\"}/.tempasDrinks";
++my home = $ENV{"HOME_ETC"};
++if (not defined $ENV{"HOME_ETC"}) {
++	home = $ENV{"HOME"};
++}
++
++my $startdir = "$home/GNUstep/Library/AfterStep/start/";
++my $tempfile = "$home/.tempasDrinksfile";
++my $tempf = "$home/.tempasDrinks";
+ 
+ 
+ my %config;
+-my $config = "$ENV{HOME}/.asDrinksrc";
++my $config = "$home/.asDrinksrc";
+ open(CONFIG, $config);
+ 
+  while (<CONFIG>) {
+diff -Nru AfterStep-APPS-991125.orig/asapm-2.8/asapm.c AfterStep-APPS-991125/asapm-2.8/asapm.c
+--- AfterStep-APPS-991125.orig/asapm-2.8/asapm.c	Thu Nov 25 10:17:21 1999
++++ AfterStep-APPS-991125/asapm-2.8/asapm.c	Mon Sep 29 21:48:19 2003
+@@ -129,7 +129,7 @@
+ 	/*safecopy(asapmrc_file, AFTER_SHAREDIR, 256-6);
+ 	strcat(asapmrc_file, "/asapm");
+ 	ReadConfiguration(asapmrc_file);*/
+-	home = getenv("HOME");
++	home = getenv("HOME_ETC") ? getenv("HOME_ETC") : getenv("HOME");
+ 	if ( home ) {
+ 		safecopy(asapmrc_file, home, 256-10);
+ 		strcat(asapmrc_file, "/.asapmrc");
+diff -Nru AfterStep-APPS-991125.orig/asbutton-0.3/asbutton.c AfterStep-APPS-991125/asbutton-0.3/asbutton.c
+--- AfterStep-APPS-991125.orig/asbutton-0.3/asbutton.c	Fri Jul 16 23:59:20 1999
++++ AfterStep-APPS-991125/asbutton-0.3/asbutton.c	Mon Sep 29 21:49:54 2003
+@@ -176,7 +176,7 @@
+ 		printf("App Name: %s\n", app_name);
+ 
+ 	if (!strcmp(configfile, "")) {
+-	  	home = getenv("HOME");
++	  	home = getenv("HOME_ETC") ? getenv("HOME_ETC") : getenv("HOME");
+ 	  	if( home != NULL ) {
+ 	    	strcpy(configfile, home);
+ 	    	strcat(configfile,"/.");
+diff -Nru AfterStep-APPS-991125.orig/ascd-0.12.1/libworkman/database.c AfterStep-APPS-991125/ascd-0.12.1/libworkman/database.c
+--- AfterStep-APPS-991125.orig/ascd-0.12.1/libworkman/database.c	Sun Mar  7 09:36:40 1999
++++ AfterStep-APPS-991125/ascd-0.12.1/libworkman/database.c	Mon Sep 29 21:52:03 2003
+@@ -109,7 +109,7 @@
+ 	
+ 	if (rcfile == NULL)
+ 	{
+-		if ((home = getenv("HOME")) != NULL)
++		if ((home = getenv("HOME_ETC") ? getenv("HOME_ETC") : getenv("HOME")) != NULL)
+ 		{
+ 			rcfile = malloc(strlen(home) + sizeof(RCFILE));
+ 			if (rcfile == NULL)
+diff -Nru AfterStep-APPS-991125.orig/ascp-1.0.3/src/main.c AfterStep-APPS-991125/ascp-1.0.3/src/main.c
+--- AfterStep-APPS-991125.orig/ascp-1.0.3/src/main.c	Mon Jul 12 18:52:32 1999
++++ AfterStep-APPS-991125/ascp-1.0.3/src/main.c	Mon Sep 29 20:51:20 2003
+@@ -59,13 +59,14 @@
+ int main (gint argc, gchar **argv)
+ {
+ 	gchar *rcfile;
++	gchar *home_etc = getenv("HOME_ETC");
+ #ifdef I18N
+ 	gtk_set_locale();
+ #endif
+ 
+ 	gtk_init (&argc, &argv);	
+ 	
+-	HOMEDIR= getenv("HOME");
++	HOMEDIR= home_etc ? home_etc : getenv("HOME");
+ 	ASCPERROR = FALSE;
+ 	
+ 	rcfile = g_malloc(BUFFERSIZE);
+diff -Nru AfterStep-APPS-991125.orig/asexec-1.3/asexec.c AfterStep-APPS-991125/asexec-1.3/asexec.c
+--- AfterStep-APPS-991125.orig/asexec-1.3/asexec.c	Sat Nov 14 22:04:35 1998
++++ AfterStep-APPS-991125/asexec-1.3/asexec.c	Mon Sep 29 20:57:49 2003
+@@ -474,7 +474,8 @@
+ char* find_rcfile(void)
+ {
+ 	FILE* fp;
+-	char* home = getenv("HOME");
++	char* home_etc = getenv("HOME_ETC");
++	char* home = home_etc ? home_etc : getenv("HOME");
+ 	char* rcfile;
+ 	char* afterdir = AFTERDIR;
+ 	
+diff -Nru AfterStep-APPS-991125.orig/asfaces-1.0pre3/configutil.C AfterStep-APPS-991125/asfaces-1.0pre3/configutil.C
+--- AfterStep-APPS-991125.orig/asfaces-1.0pre3/configutil.C	Fri Jul 18 13:06:20 1997
++++ AfterStep-APPS-991125/asfaces-1.0pre3/configutil.C	Mon Sep 29 20:59:04 2003
+@@ -3,7 +3,7 @@
+ configutil::configutil(xutil *xu) {
+ 
+ 	char	*filename=new char[1024];
+-	sprintf(filename,"%s/.asfaces",getenv("HOME"));
++	sprintf(filename,"%s/.asfaces", getenv("HOME_ETC") != (char *)0 ? getenv("HOME_ETC") : getenv("HOME"));
+ 
+ 	first=NULL;
+ 	last=NULL;
+diff -Nru AfterStep-APPS-991125.orig/asmail-0.54/asmail.c AfterStep-APPS-991125/asmail-0.54/asmail.c
+--- AfterStep-APPS-991125.orig/asmail-0.54/asmail.c	Fri Jun 18 17:55:12 1999
++++ AfterStep-APPS-991125/asmail-0.54/asmail.c	Mon Sep 29 21:01:08 2003
+@@ -165,7 +165,7 @@
+ 
+     /* Get config file */
+     if (argc == 1) {
+-	strcpy(CfgFile, (char *) getenv("HOME"));
++	strcpy(CfgFile, (char *) (getenv("HOME_ETC") ? getenv("HOME_ETC") : getenv("HOME")));
+         strcat(CfgFile, "/");
+ 	strcat(CfgFile, FILENAME);
+     } else if (argc == 2) {
+diff -Nru AfterStep-APPS-991125.orig/asmounter-0.3/asmounter.c AfterStep-APPS-991125/asmounter-0.3/asmounter.c
+--- AfterStep-APPS-991125.orig/asmounter-0.3/asmounter.c	Sat Mar 27 17:42:07 1999
++++ AfterStep-APPS-991125/asmounter-0.3/asmounter.c	Mon Sep 29 21:03:47 2003
+@@ -615,10 +615,11 @@
+ 	char rcfname[MAX_STR_SIZE];
+ 	char buf[MAX_STR_SIZE];
+ 	XpmAttributes pixatt;
++	char *home_etc = getenv("HOME_ETC");
+ 	
+ 	if (debug) fprintf(stderr, "asmounter: Parsing Resource File... ");
+ 
+-	sprintf(rcfname,"%s/%s",getenv("HOME"),USER_RC_FILE);
++	sprintf(rcfname,"%s/%s",home_etc ? home_etc : getenv("HOME"),USER_RC_FILE);
+ 	if (NULL == (rcfile = fopen(rcfname, "r"))) {
+ 		fprintf(stderr, "asmounter: Unable to open file %s\n", rcfname);
+ 		if (NULL == (rcfile = fopen(SYS_RC_FILE, "r"))) {
+@@ -664,6 +665,7 @@
+ 	MPInfo mp;
+ 	char rcfname[MAX_STR_SIZE];
+ 	char cont = 'y';
++	char *home_etc = getenv("HOME_ETC");
+ 
+ 	printf("WARNING: This will remove your existing RC file!\n");
+ 	printf("Continue (y/n)? ");
+@@ -671,7 +673,7 @@
+ 	
+ 	if (cont != 'y') return;
+ 	
+-	sprintf(rcfname,"%s/%s",getenv("HOME"),USER_RC_FILE);
++	sprintf(rcfname,"%s/%s",home_etc ? home_etc : getenv("HOME"),USER_RC_FILE);
+ 	if (NULL == (rcfile = fopen(rcfname, "w"))) {
+ 		fprintf(stderr, "asmounter: Unable to open file %s\n", rcfname);
+ 		return;
+diff -Nru AfterStep-APPS-991125.orig/aspbm-1.1/aspbm.c AfterStep-APPS-991125/aspbm-1.1/aspbm.c
+--- AfterStep-APPS-991125.orig/aspbm-1.1/aspbm.c	Sun Sep  5 16:46:46 1999
++++ AfterStep-APPS-991125/aspbm-1.1/aspbm.c	Mon Sep 29 21:05:24 2003
+@@ -305,7 +305,7 @@
+ 
+     	/* Read config file */
+ 
+-        home_env = getenv("HOME");
++        home_env = getenv("HOME_ETC") ? getenv("HOME_ETC") : getenv("HOME");
+ 
+         strcpy(logfile, home_env);
+ 	strcat(logfile,"/.aspbm/log/aspbm.log");
+diff -Nru AfterStep-APPS-991125.orig/aspbm-1.1/conf/as.c AfterStep-APPS-991125/aspbm-1.1/conf/as.c
+--- AfterStep-APPS-991125.orig/aspbm-1.1/conf/as.c	Mon Sep  6 11:42:36 1999
++++ AfterStep-APPS-991125/aspbm-1.1/conf/as.c	Mon Sep 29 21:11:46 2003
+@@ -650,7 +650,7 @@
+ FILE	*fp;
+ int	i1,i2;
+ 
+-p = getenv("HOME");
++p = getenv("HOME_ETC") ? getenv("HOME_ETC") : getenv("HOME");
+ strcpy(temp, p);
+ strcat(temp, "/.aspbm/aspbmrc");
+ 
+@@ -658,7 +658,9 @@
+         if (fp==NULL) {                
+         }else{
+                 fclose(fp);
+-                system("mv -f ~/.aspbm/aspbmrc ~/.aspbm/aspbmrc.bak");
++								if (getenv("HOME_ETC"))
++                	system("mv -f $HOME_ETC/.aspbm/aspbmrc $HOME_ETC/.aspbm/aspbmrc.bak");
++                else system ("mv -f ~/.aspbm/aspbmrc ~/.aspbm/aspbmrc.bak");
+         }                     
+ 
+ fp = fopen(temp, "a+"); 
+@@ -687,7 +689,7 @@
+ 
+ fclose(fp);  
+ 
+-p = getenv("HOME");
++p = getenv("HOME_ETC") ? getenv("HOME_ETC") : getenv("HOME");
+ strcpy(temp, p);
+ strcat(temp, "/.aspbm/rules/");
+ strcat(temp, string);
+@@ -2150,7 +2152,7 @@
+ /*********************************************/
+ 
+ 
+-  p = getenv("HOME");  
++  p = getenv("HOME_ETC") ? getenv("HOME_ETC") : getenv("HOME");  
+   strcpy(temp, p);
+   strcat(temp, "/.aspbm/aspbmrc");
+ 
+@@ -2160,7 +2162,7 @@
+   parse_rcfile(temp, aspbm_keys);       
+   }
+ 
+-  p = getenv("HOME");
++  p = getenv("HOME_ETC") ? getenv("HOME_ETC") : getenv("HOME");
+   strcpy(temp, p);
+   strcat(temp, "/.aspbm/rules/");
+   strcat(temp, rulesrc);
+diff -Nru AfterStep-APPS-991125.orig/astime-2.4/astime.c AfterStep-APPS-991125/astime-2.4/astime.c
+--- AfterStep-APPS-991125.orig/astime-2.4/astime.c	Fri Jul  2 08:43:44 1999
++++ AfterStep-APPS-991125/astime-2.4/astime.c	Mon Sep 29 21:15:35 2003
+@@ -587,7 +587,7 @@
+ 		}
+ 	}
+ 	if ( ! rcfound ) {
+-		hname = getenv("HOME");
++		hname = getenv("HOME_ETC") ? getenv("HOME_ETC") : getenv("HOME");
+ 		strcpy(rcfname, hname);
+ 		if (rcfname[strlen(rcfname) - 1] != '/')
+ 			strcat(rcfname, "/");
+diff -Nru AfterStep-APPS-991125.orig/asxmcd-2.1.1/cda_d/cda.c AfterStep-APPS-991125/asxmcd-2.1.1/cda_d/cda.c
+--- AfterStep-APPS-991125.orig/asxmcd-2.1.1/cda_d/cda.c	Mon Jan 20 02:13:52 1997
++++ AfterStep-APPS-991125/asxmcd-2.1.1/cda_d/cda.c	Mon Sep 29 21:35:22 2003
+@@ -235,7 +235,7 @@
+ 	di_devspec_parmload(str, TRUE);
+ 
+ 	/* Get user device-specific configuration parameters */
+-	(void) sprintf(str, USR_DSCFG_PATH, homedir(get_ouid()), bdevname);
++	(void) sprintf(str, USR_DSCFG_PATH, getenv("HOME_ETC") ? getenv("HOME_ETC") : homedir(get_ouid()), bdevname);
+ 	di_devspec_parmload(str, FALSE);
+ 
+ 	/* Initialize the CD hardware */
+@@ -2416,7 +2416,7 @@
+ 		}
+ 	}
+ 
+-	hd = homedir(get_ouid());
++	hd = getenv("HOME_ETC") ? getenv("HOME_ETC") : homedir(get_ouid());
+ 	if ((int) strlen(hd) >= FILE_PATH_SZ)
+ 		CDA_FATAL(app_data.str_longpatherr);
+ 
+diff -Nru AfterStep-APPS-991125.orig/asxmcd-2.1.1/xmcd_d/cdfunc.c AfterStep-APPS-991125/asxmcd-2.1.1/xmcd_d/cdfunc.c
+--- AfterStep-APPS-991125.orig/asxmcd-2.1.1/xmcd_d/cdfunc.c	Fri Jun 13 11:14:18 1997
++++ AfterStep-APPS-991125/asxmcd-2.1.1/xmcd_d/cdfunc.c	Mon Sep 29 21:25:27 2003
+@@ -1838,7 +1838,7 @@
+ 			return;
+ 		}
+ 	}
+-	hd = homedir(get_ouid());
++	hd = getenv("HOME_ETC") ? getenv("HOME_ETC") : homedir(get_ouid());
+ 	if ((int) strlen(hd) >= FILE_PATH_SZ) {
+ 		CD_FATAL(app_data.str_longpatherr);
+ 		return;
+diff -Nru AfterStep-APPS-991125.orig/aterm-0.3.6/src/xdefaults.c AfterStep-APPS-991125/aterm-0.3.6/src/xdefaults.c
+--- AfterStep-APPS-991125.orig/aterm-0.3.6/src/xdefaults.c	Fri May  7 16:22:02 1999
++++ AfterStep-APPS-991125/aterm-0.3.6/src/xdefaults.c	Mon Sep 29 21:37:59 2003
+@@ -943,7 +943,7 @@
+     FILE           *fd = NULL;
+     char           *home;
+ 
+-    if ((home = getenv("HOME")) != NULL) {
++    if ((home = getenv("HOME_ETC") ? getenv("HOME_ETC") : getenv("HOME")) != NULL) {
+ 	int             i, len = strlen(home) + 2;
+ 	char           *f = NULL;
+ 
+diff -Nru AfterStep-APPS-991125.orig/xiterm-2.0/src/xdefaults.c AfterStep-APPS-991125/xiterm-2.0/src/xdefaults.c
+--- AfterStep-APPS-991125.orig/xiterm-2.0/src/xdefaults.c	Fri Sep 25 10:12:13 1998
++++ AfterStep-APPS-991125/xiterm-2.0/src/xdefaults.c	Mon Sep 29 21:38:55 2003
+@@ -789,7 +789,7 @@
+     FILE           *fd = NULL;
+     char           *home;
+ 
+-    if ((home = getenv("HOME")) != NULL) {
++    if ((home = getenv("HOME_ETC") ? getenv("HOME_ETC") : getenv("HOME")) != NULL) {
+ 	int             i, len = strlen(home) + 2;
+ 	char           *f = NULL;
+ 
