@@ -1,0 +1,19 @@
+--- AfterStep-APPS-990329/ascd-0.10.1/libworkman/include/wm_cdda.h.compile	Sun Feb 14 04:50:46 1999
++++ AfterStep-APPS-990329/ascd-0.10.1/libworkman/include/wm_cdda.h	Mon Mar 29 19:59:51 1999
+@@ -91,7 +91,6 @@
+  * if there is no support.
+  */
+ #ifdef linux
+-# include <bytesex.h>
+ # include <endian.h>
+ /*
+  * XXX could this be a problem? The results are only 0 and 1 because
+--- AfterStep-APPS-990329/ascd-0.10.1/libworkman/Config.compile	Mon Mar 29 20:02:21 1999
++++ AfterStep-APPS-990329/ascd-0.10.1/libworkman/Config	Mon Mar 29 20:02:24 1999
+@@ -43,6 +43,5 @@
+ 
+ 
+ XCOMM -------------------------------------------------------------------
+-#define SHARED_LIBWORKMAN
+ LIBDIR=/usr/local/lib
+ 
