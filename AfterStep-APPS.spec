@@ -3,10 +3,10 @@ Summary(pl):	Aplety, których mo¿esz u¿ywaæ z AfterStepem oraz innymi zarz±dcami 
 Name:		AfterStep-APPS
 Version:	991125
 Release:	3
-Copyright:	GPL
+License:	GPL
 Group:		X11/Window Managers/Tools
 Group(pl):	X11/Zarz±dcy Okien/Narzêdzia
-Source:		http://www.tigr.net/afterstep/as-apps/download/as-apps-%{version}.tar
+Source0:	http://www.tigr.net/afterstep/as-apps/download/as-apps-%{version}.tar
 Patch0:		AfterStep-APPS-1.5beta1-glibc.patch
 Patch1:		ascp-paths.patch
 Patch2:		as-apps-compile.patch
@@ -20,24 +20,23 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_mandir	/usr/X11R6/man
 
 %description
-What's a cool window manager without some cool applets?
-Well... it's still cool, but these applets which can
-be used in the Wharf module for AfterStep or Window
-Maker can add both spice and productivity to your
-preferred window manager, such as a handy clock and
-information about system resources.
+What's a cool window manager without some cool applets? Well... it's
+still cool, but these applets which can be used in the Wharf module
+for AfterStep or Window Maker can add both spice and productivity to
+your preferred window manager, such as a handy clock and information
+about system resources.
 
-If you've installed the AfterStep packages, you
-should also install these packages. Enjoy! 
+If you've installed the AfterStep packages, you should also install
+these packages. Enjoy!
 
 %description -l pl
-Czym jest fajny zarz±dca okien bez fajnych apletów?
-Có¿... jest nadal fajnym zarz±dc± okien, ale aplety, które mog± byæ u¿ywane
-w module Wharf AfterStepa lub Window Makera, mog³yby zwiêkszyæ efektywno¶æ
-i efektowno¶æ twojego ulubionego zarz±dcy okien.
+Czym jest fajny zarz±dca okien bez fajnych apletów? Có¿... jest nadal
+fajnym zarz±dc± okien, ale aplety, które mog± byæ u¿ywane w module
+Wharf AfterStepa lub Window Makera, mog³yby zwiêkszyæ efektywno¶æ i
+efektowno¶æ twojego ulubionego zarz±dcy okien.
 
-Je¿eli masz zainstalowanego AfterStepa to powiniene¶ zainstalowaæ tak¿e ten
-pakiet. Mi³ej zabawy!
+Je¿eli masz zainstalowanego AfterStepa to powiniene¶ zainstalowaæ
+tak¿e ten pakiet. Mi³ej zabawy!
 
 %prep
 %setup -q -c
