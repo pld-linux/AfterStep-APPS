@@ -1,5 +1,5 @@
 Summary:	Applets you can use with AfterStep and compatible window managers
-Summary(pl.UTF-8):   Aplety, których możesz używać z AfterStepem oraz innymi zarządcami okien, które są z nim kompatybilne
+Summary(pl.UTF-8):	Aplety, których możesz używać z AfterStepem oraz innymi zarządcami okien, które są z nim kompatybilne
 Name:		AfterStep-APPS
 Version:	991125
 Release:	4
