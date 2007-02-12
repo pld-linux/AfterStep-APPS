@@ -1,5 +1,5 @@
 Summary:	Applets you can use with AfterStep and compatible window managers
-Summary(pl):	Aplety, których mo¿esz u¿ywaæ z AfterStepem oraz innymi zarz±dcami okien, które s± z nim kompatybilne
+Summary(pl.UTF-8):   Aplety, ktÃ³rych moÅ¼esz uÅ¼ywaÄ‡ z AfterStepem oraz innymi zarzÄ…dcami okien, ktÃ³re sÄ… z nim kompatybilne
 Name:		AfterStep-APPS
 Version:	991125
 Release:	4
@@ -29,14 +29,14 @@ about system resources.
 If you've installed the AfterStep packages, you should also install
 these packages. Enjoy!
 
-%description -l pl
-Czym jest fajny zarz±dca okien bez fajnych apletów? Có¿... jest nadal
-fajnym zarz±dc± okien, ale aplety, które mog± byæ u¿ywane w module
-Wharf AfterStepa lub Window Makera, mog³yby zwiêkszyæ efektywno¶æ i
-efektowno¶æ twojego ulubionego zarz±dcy okien.
+%description -l pl.UTF-8
+Czym jest fajny zarzÄ…dca okien bez fajnych apletÃ³w? CÃ³Å¼... jest nadal
+fajnym zarzÄ…dcÄ… okien, ale aplety, ktÃ³re mogÄ… byÄ‡ uÅ¼ywane w module
+Wharf AfterStepa lub Window Makera, mogÅ‚yby zwiÄ™kszyÄ‡ efektywnoÅ›Ä‡ i
+efektownoÅ›Ä‡ twojego ulubionego zarzÄ…dcy okien.
 
-Je¿eli masz zainstalowanego AfterStepa to powiniene¶ zainstalowaæ
-tak¿e ten pakiet. Mi³ej zabawy!
+JeÅ¼eli masz zainstalowanego AfterStepa to powinieneÅ› zainstalowaÄ‡
+takÅ¼e ten pakiet. MiÅ‚ej zabawy!
 
 %prep
 %setup -q -c
